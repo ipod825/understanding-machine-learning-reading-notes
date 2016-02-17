@@ -28,7 +28,7 @@
 ## Relations to Other Fields
 * Difference from AI - emphasizing more on using strength of computer to complement human intelligence
 * Different from statistics
-    * Emphasize more on learning meaning pattern (hypothesis) than doing hypothesis test
+    * Emphasize more on learning meaningful pattern (hypothesis) than doing hypothesis test
     * Emphasize more on algorithmic issues, computation efficiency
     * Learning theory focuses on finite sample bounds rather than asymptotic behavior, i.e., infinite samples
-    * Assumes as little as possible about the nature of data distribution
+    * Assume as little as possible about the nature of data distribution
