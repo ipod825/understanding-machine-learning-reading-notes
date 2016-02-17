@@ -1,5 +1,5 @@
-My Awesome Book
+Understanding Machine Learning - Reading Notes
 =======
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
-
+My notes fore reading the book **Understanding Machine Learning:
+From Theory to Algorithms**
