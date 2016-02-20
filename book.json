@@ -1,6 +1,5 @@
 {
     "plugins": [
-        "katex",
         "latex-codecogs"
     ],
     "pluginsConfig": {}
