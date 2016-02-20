@@ -1,4 +1,5 @@
-# A Formal Model – The Statistical Learning Framework
+# The Statistical Learning Framework
+Let's first describe a formal model capturing statistical learning tasks.
 
 ## The learner's input
 * Domain set $$\chi$$: A set of objects that we wish to label. Usually, this domain points are represented by a vector of features (e.g., several papayas represented by their color and softness).
