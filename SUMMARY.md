@@ -1,8 +1,8 @@
 # Summary
 
 * [Preface](README.md)
-* [Introduction](content/chapter1.md)
-* [A Gentle Start](content/chapter2.md)
-    * [The Statistical Learning Framework](content/chapter2.1.md)
-    * [Empirical Risk Minimization](content/chapter2.2.md)
+* [Introduction](contents/chapter1.md)
+* [A Gentle Start](contents/chapter2.md)
+    * [The Statistical Learning Framework](contents/chapter2.1.md)
+    * [Empirical Risk Minimization](contents/chapter2.2.md)
 
