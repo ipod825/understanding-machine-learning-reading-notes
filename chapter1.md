@@ -1,6 +1,6 @@
-# Chapter 1 - Introduction
+# Introduction
 
-## What Is Learning? 
+#### What Is Learning? 
 * Learning by memorization - **bad generalization**
 * Inductive reasoning (inference) - better generalization
 * Weakness of inductive inference - might lead to **false conclusion**
@@ -10,11 +10,11 @@
     * Bias (prior knowledge) is inevitable for useful learning - **No-Free-Lunch-theorem**
     * Trade-off between learn-ability (strong bias) and flexibility (weak bias)
 
-## When Do We Need Machine Learning?
+#### When Do We Need Machine Learning?
 * Tasks that are too complex to program by hands
 * Tasks that might change over time or from one user to another (e.g., speech recognition)
 
-## Types of Learning
+#### Types of Learning
 * Supervised/Unsupervised learning - whether the training data are labeled
     * Intermediate setting - Predicting more than the given labels. (e.g., Try to learn evaluation function of chess board with only process and the winner as training data.)
 * Active/Passive learning - whether the learner interacts with the environment (posing queries or performing experiments)
@@ -25,7 +25,7 @@
 * Online/Batch learning - whether the learner should respond online
 
 
-## Relations to Other Fields
+#### Relations to Other Fields
 * Difference from AI - emphasizing more on using strength of computer to complement human intelligence
 * Different from statistics
     * Emphasize more on learning meaningful pattern (hypothesis) than doing hypothesis test
