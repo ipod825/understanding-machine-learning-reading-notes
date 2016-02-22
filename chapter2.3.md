@@ -35,15 +35,15 @@ We will also utilized two lemma:
 
 ##### Derivation of The Inequality
 * $$ERM_{ \mathcal{H}}(S)$$ gives us a hypothesis $$h_S \in \mathop{argmin}_{h \in \mathcal{H}} L_s(h)$$. 
-* We intepret the event that the true error is greater than a certain amount as overfitting
+* We interpret the event that the true error is greater than a certain amount as overfitting
 > $$L_{ \mathcal{D},f}(h_s) > \epsilon$$
 * Since $$h_s$$ depends on the training set $$S$$, which is picked by a random process, the true error is also a random variable, and the probability that overfitting happens is 
 > $$ \mathbb{P}[L_{ \mathcal{D},f}(h_s) > \epsilon] = \mathcal{D}^m(\{S|_x: L_{ \mathcal{D},f }(h_s)>\epsilon\})$$
-* We than upperbound the probability of overfitting with a parameter $$\delta$$
+* We than upper bound the probability of overfitting with a parameter $$\delta$$
 > $$ \mathcal{D}^m(\{S|_x: L_{ \mathcal{D},f }(h_s)>\epsilon\})<\delta$$,
 where $$S|_x=(x_1\dots, \x_m)$$ is the instances of the training set
 
-In other words, overfitting happens when we are unlucky to get a nonrepresentative sample that leads to great true error. What we want to do is to bound the probability of such "unluckiness" to a small value $$\delta$$.
+In other words, overfitting happens when we are unlucky to get a non-representative sample that leads to great true error. What we want to do is to bound the probability of such "unluckiness" to a small value $$\delta$$.
 
 
 ##### Derivation of the result
@@ -102,7 +102,7 @@ Let $$ \mathcal{H}$$ be a finite hypothesis class. Let $$\delta\in (0,1)$$ and $
 Then, for any labeling function, $$f$$ , and for any distribution, $$ \mathcal{D}$$ , for which the realizability assumption holds (that is, for some $$h\in \mathcal{H}, L_{( \mathcal{D},f )}(h)=0$$ holds), with probability of at least $$1-\delta$$ over the choice of an i.i.d. sample $$S$$ of size $$m$$ , we have that for every ERM hypothesis, $$h_s$$, it holds that
 > $$L_{( \mathcal{D},f )}(h_s) < \epsilon$$
 
-The preceeding corollary tells us that for a suciently large $$m$$ , the $$ERM_{ \mathcal{H} }$$ rule over a finite hypothesis class will be *probably* (with confidence $$1-\delta$$) *approiamately* (up to an error of $$\epsilon$$) correct. 
+The preceding corollary tells us that for a sufficiently large $$m$$ , the $$ERM_{ \mathcal{H} }$$ rule over a finite hypothesis class will be *probably* (with confidence $$1-\delta$$) *approiamately* (up to an error of $$\epsilon$$) correct. 
 
 ####A Final Analogy
 
