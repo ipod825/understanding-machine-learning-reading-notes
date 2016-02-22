@@ -104,6 +104,14 @@ Then, for any labeling function, $$f$$ , and for any distribution, $$ \mathcal{D
 
 The preceeding corollary tells us that for a suciently large $$m$$ , the $$ERM_{ \mathcal{H} }$$ rule over a finite hypothesis class will be *probably* (with confidence $$1-\delta$$) *approiamately* (up to an error of $$\epsilon$$) correct. 
 
+####A Final Analogy
+
+Imageine that you are hosting a company and you are hiring workers from a finite pool ($$ \mathcal{H}$$). Each of your customer will order a list of $$m$$-tasks to execute ($$m$$-tuple sample $$S$$). To complete the order, you simply choose one worker form those who make no error for all the tasks on the list (ERM).
+
+Though things went well, one day, you just come up the the question that whether you are hiring the right person. You suspect that the worker you choose might do well for the order list, but he/she might fail on many other tasks. You feel that is unfair for those left good workers who performe well not only for the order list but also for the other tasks. 
+
+You then remember that the machine learning theory teaches you a lesson. All you need to do is to combine several order lists into a new one such that the new one contains much more tasks. The intuition is that if the worker does not really perform well on many tasks (true error $$> \epsilon$$), as you increase the number of tasks on the list, he/she becomes less likely to make no error for tasks on the list and hence will not be chosen by you. By doing so, with a certain confidence level, you know that the workers you chose not only perform well for customer orders but they also make little error when asked to execute the other tasks. 
+
 [^1]: There might be multiple $$h$$ leading to the minimum error on $$S$$.
 [^2]: Like $$ \mathcal{D}(A)$$, $$ \mathcal{D}^m(A^m)$$ assigns a probability determining how likely it is to observe a sequence of sample belonging to the event $$A^m \subseteq \chi^m$$
 
