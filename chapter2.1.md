@@ -1,17 +1,17 @@
 # The Statistical Learning Framework
 Let's first describe a formal model capturing statistical learning tasks.
 
-#### The learner's input
+#### The Learner's Input
 * Domain set $$\chi$$: A set of objects that we wish to label. Usually, this domain points are represented by a vector of features (e.g., several papayas represented by their color and softness).
 * Label set $$\mathcal{Y}$$: For current discussion, $$\mathcal{Y}$$ is restricted to a two-element set, $$\{0,1\}$$ or $$\{-1,+1\}$$ (e.g., whether the papaya is tasty or not).
 * Training data $$S=((x_1, y_1)\dots(x_m, y_m))$$: A finite sequence of pairs in $$\chi \times \mathcal{Y}$$; that is, a sequence of domain points and their labels. 
 
-#### How the training data $$S$$ is generated
+#### How the Training Data $$S$$ is Generated
 * We assume that each instance $$x_i \in \chi$$ is sampled according to a probability distribution $$\mathcal{D}$$
 * For current discussion, assume that there is a "correct" labeling function $$f: \chi \rightarrow \mathcal{Y}$$ such that $$y_i = f(x_i)$$ for all $$i$$.
 
 
-#### The learner's output
+#### The Learner's Output
 * The learner does not know anything about $$\mathcal{D}$$ and is required to learn $$f$$
 * The learner should output a prediction rule (function) $$h:\chi \rightarrow \mathcal{Y}$$. The function is also called *predictor*, a *hypothesis*, or a *classifier*.
 
