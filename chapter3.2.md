@@ -49,20 +49,20 @@ A hypothesis class $$ \mathcal{H}$$ is agnostic PAC learnable if there exists a 
 * When the realizability assumption does not hold, no learner can guarantee an arbitrarily small error.
 * Nevertheless, under the definition of agnostic PAC learning, a learner can still declare success if its error is not much larger than the best error achievable by a predictor from the class $$ \mathcal{H}$$.
 
-<!-- ### The Scope of Learning Problems Modeled -->
-<!-- We next extend our model so that it can be applied to a wide variety of learning tasks in addition to binary classification task. -->
-<!--  -->
-<!-- * Multiclass Classification: We can simply generalize the binary classification task, where $$ \mathcal{Y}=\{0,1\}$$, to multiclass classification by enabling $$ \mathcal{Y}$$ to be a larger finite set. An example is document classification -->
-<!--  -->
-<!-- * Regression: In In this task, one wishes to find some simple pattern in the data -- a functional relationship between the $$\chi$$ and $$ \mathcal{Y}$$ components of the data. For example, one wishes to find a linear function that best predicts a man's height on the basis of his weight and his age. The domain set $$\chi$$ is a subset of $$ \mathbb{R}^2$$ and the target set $$ \mathcal{Y}$$ is the set of real numbers. Like classification task, the learner still gets a finite sequence of $$(x,y)$$ pairs and is required to output a function from $$\chi$$ to $$ \mathcal{Y}$$. However, the loss of a hypothesis $$h$$ should be defined differently. A plausible option is *expected square difference*:   -->
-<!-- $$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{E}}_{(x,y)\sim \mathcal{D}}(h(x)-y)^2$$ -->
-<!--  -->
-<!-- #### Generalized Loss Functions -->
-<!-- To accommodate a wide range of learning tasks, we generalize our formalism of the loss of a hypothesis follows:   -->
-<!-- Given any set $$ \mathcal{H}$$ (hypothesis class) and some domain $$Z$$, let $$\ell$$ be any function from $$ \mathcal{H}\times Z$$ to the set of nonnegative real numbers, $$\ell: \mathcal{H}\times Z \rightarrow \mathbb{R}_+$$. -->
-<!--  -->
-<!-- Note that for classification and regression tasks, $$Z = \chi \times \mathcal{Y}$$. However, in unsupervised learning tasks, where the true labels are not accesable, $$Z = \chi$$. -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
+### The Scope of Learning Problems Modeled
+We next extend our model so that it can be applied to a wide variety of learning tasks in addition to binary classification task.
+
+* Multiclass Classification: We can simply generalize the binary classification task, where $$ \mathcal{Y}=\{0,1\}$$, to multiclass classification by enabling $$ \mathcal{Y}$$ to be a larger finite set. An example is document classification
+
+* Regression: In In this task, one wishes to find some simple pattern in the data -- a functional relationship between the $$\chi$$ and $$ \mathcal{Y}$$ components of the data. For example, one wishes to find a linear function that best predicts a man's height on the basis of his weight and his age. The domain set $$\chi$$ is a subset of $$ \mathbb{R}^2$$ and the target set $$ \mathcal{Y}$$ is the set of real numbers. Like classification task, the learner still gets a finite sequence of $$(x,y)$$ pairs and is required to output a function from $$\chi$$ to $$ \mathcal{Y}$$. However, the loss of a hypothesis $$h$$ should be defined differently. A plausible option is *expected square difference*:  
+$$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{E}}_{(x,y)\sim \mathcal{D}}(h(x)-y)^2$$
+
+#### Generalized Loss Functions
+To accommodate a wide range of learning tasks, we generalize our formalism of the loss of a hypothesis follows:  
+Given any set $$ \mathcal{H}$$ (hypothesis class) and some domain $$Z$$, let $$\ell$$ be any function from $$ \mathcal{H}\times Z$$ to the set of nonnegative real numbers, $$\ell: \mathcal{H}\times Z \rightarrow \mathbb{R}_+$$.
+
+Note that for classification and regression tasks, $$Z = \chi \times \mathcal{Y}$$. However, in unsupervised learning tasks, where the true labels are not accesable, $$Z = \chi$$.
+
+
+
+
