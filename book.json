@@ -1,7 +1,6 @@
 {
     "plugins": [
-        "latex-codecogs",
-        "numbered-headings"
+        "latex-codecogs"
     ],
     "pluginsConfig": {}
 }
