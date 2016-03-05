@@ -1,10 +1,10 @@
 # Introduction
 
-#### What Is Learning?
-##### Learning by Memorization 
+## What Is Learning?
+### Learning by Memorization 
 Take spam e-mails filtering as an example. The learning machine will simply memorize all previous e-mails that had been labeled as spam e-mails by the human user. When a new e-mail arrives, the machine will search through all previous spam e-mails. If a match is found, the new e-mail is trashed. Otherwise, it will be kept in the user's inbox folder.
 
-##### Inductive Reasoning (Inference)
+### Inductive Reasoning (Inference)
 "Learning by memorization" does not generalized well because it can not label unseen instances. To achieve better generalization on the spam e-mails filtering task, a better way is to extract a set of key words from the previous spam e-mails and detect whether a new e-mail contains one or more of these key words. Such method would probably be able to predict the label of unseen e-mails.
 
 A learner that can progress from individual examples to broader generalization is referred to as *inductive reasoning* or *inductive inference*. Though it seems to be a better choice, it might lead us to false conclusions. Consider the Pigeon Superstition Experiment[^1]:
@@ -18,11 +18,11 @@ between food and nausea can be causal, it is unlikely that there would be a caus
 
 It turns out that the  incorporation of  prior  knowledge, biasing the learning process, is inevitable for the success of learning algorithms (this is formally stated and proved as the "No-Free-Lunch theorem" in Chapter 5 in the book). Roughly speaking, the stronger the bias is, the easier it is to learn from further examples. However, the stronger bias also cause less flexibility for learning.
 
-#### When Do We Need Machine Learning?
+## When Do We Need Machine Learning?
 * Tasks that are too complex to program by hands (e.g., driving)
 * Tasks that might change over time or from one user to another (e.g., speech recognition)
 
-#### Types of Learning
+## Types of Learning
 * Supervised/Unsupervised Learning: Whether the training data are labeled
     * Supervised Learning Example: Spam e-mails filtering
     * Unsupervised Learning example: Clustering a data set into subsets of similar objects 
@@ -36,7 +36,7 @@ It turns out that the  incorporation of  prior  knowledge, biasing the learning 
 
 This book focuses on supervised statistical batch learning with a passive learner.
 
-#### Relations to Other Fields
+## Relations to Other Fields
 * Difference from AI: Machine learning emphasizes more on using strength of computer to complement human intelligence
 * Different from Statistics
     * Machine learning emphasizes more on learning meaningful pattern (hypothesis) than doing hypothesis test
