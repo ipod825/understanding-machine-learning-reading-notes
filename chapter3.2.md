@@ -1,39 +1,68 @@
 ## General PAC Learning
 In the previous PAC learning model, we hold realizability assumption and focus on binary classification. In the following, we will generalize the PAC learning model in this two aspects.
 
-### Releasing the Realizability Assumption – Agnostic PAC Learning
-The realizability assumption is two-fold. Firstly, we assume that there is an unique "target labeling function" $$f(x)$$ determining the labels. And secondly, we assume that $$\exists h^* \in \mathcal{H}$$ such that $$ \mathbb{P}_{x\sim \mathcal{D}}[h^*(x)=f(x)]=1$$. Both assumption might not be realistic. The labels might not be determined solely by the feature we extract. And the hypothesis in the hypothesis class might not be strong enough to fit all data. To relax the Realizability assumption, we will replace the "target labeling function" $$f(x)$$ with a data-labels generating distribution.
+### Releasing the Realizability Assumption
+The realizability assumption is two-fold.
+* We assume that there is an unique "target labeling function" $$f(x)$$ determining the labels.
+* We assume that $$\exists h^* \in \mathcal{H}$$ such that $$ \mathbb{P}_{x\sim \mathcal{D}}[h^*(x)=f(x)]=1$$.
 
-Formally, from now on, let $$ \mathcal{D}$$ be a probability distribution over $$\chi \times \mathcal{y}$$. That is, $$ \mathcal{D}$$ is a joint distribution over domain points and labels. One can view such a distribution as being composed of two parts: a distribution $$ \mathcal{D}_x$$ over unlabeled domain points (sometimes called the marginal distribution) and a conditional probability over labels for each domain point, $$ \mathcal{D}((x,y)|x)$$. Indeed, such modeling allows for two data-points that share the same feature to belong to different categories.
+Both assumption might not be realistic.
+* The labels might not be determined solely by the feature we extract. It is possible that we get two two data points with same $$x$$ but different $$y$$.
+* The hypothesis in the hypothesis class might not be strong enough to fit all data.
+
+To relax the realizability assumption, we will replace the "target labeling function" $$f(x)$$ with a data-labels generating distribution.
+* Formally, from now on, let $$ \mathcal{D}$$ be a probability distribution over $$\chi \times \mathcal{Y}$$.
+* $$ \mathcal{D}$$ is a joint distribution over domain points and labels.
+* $$ \mathcal{D}$$ can be viewed as being composed of two parts:
+    * A distribution $$ \mathcal{D}_x$$ over unlabeled domain points (sometimes called the marginal distribution)
+    * A conditional probability over labels for each domain point, $$ \mathcal{D}((x,y)|x)$$.
+* Clearly, such modeling allows for two data-points that share the same feature to belong to different categories.
 
 #### The Empirical and the True Error Revised
-Previously, the true error is defined as:  
-$$L_{ \mathcal{D},f }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{x\sim \mathcal{D}}[h(x)\neq f(x)]\mathop{=}^{def} \mathcal{D}(\{x: h(x)\neq f(x)\})$$  
-Since we now no longer have $$f(x)$$, we redefine the true error as:  
-$$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{(x,y)\sim \mathcal{D}}[h(x)\neq y]\mathop{=}^{def} \mathcal{D}(\{(x,y): h(x)\neq y\})$$  
-The definition of the empirical error remains the same:  
+* Previously, the true error is defined as:  
+$$L_{ \mathcal{D},f }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{x\sim \mathcal{D}}[h(x)\neq f(x)]\mathop{=}^{def} \mathcal{D}(\{x: h(x)\neq f(x)\})$$
+* Since we now no longer have $$f(x)$$, we redefine the true error as:  
+$$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{(x,y)\sim \mathcal{D}}[h(x)\neq y]\mathop{=}^{def} \mathcal{D}(\{(x,y): h(x)\neq y\})$$
+* The definition of the empirical error remains the same:  
 $$L_S(h) := \frac{|\{i \in [m]: h(x_i)\neq y_i\}|}{m}$$, where $$[m]=\{1,\dots,m\}$$
 
-#### The Bayes Optimal Predictor
-Previously, "approximately correct" is expressed in terms of  
-$$L_{( \mathcal{D}, f )}(h)\le epsilon$$.  
-Due to the relaxation of realizability assumption, it should be expressed as  
+#### Agnostic PAC Learnability
+* Previously, "approximately correct" is expressed in terms of  
+$$L_{( \mathcal{D}, f )}(h)\le \epsilon$$,  
+* Due to the relaxation of realizability assumption, the best a learner can do is to get the minimum true error achievable by the hypothesis class:  
 $$L_{ \mathcal{D} }(h) \le \mathop{min}_{h' \in \mathcal{H}} L_{ \mathcal{D} }(h') + \epsilon$$.  
-In such a way, the original PAC model is just a special case such that  
-$$\mathop{min}_{h' \in \mathcal{H}}L_{ \mathcal{D}}=0$$.
-
-For binary classification, given any probability distribution $$ \mathcal{D}$$ over $$\chi \teims \{0,1\}$$, the best label predicting function that leads to minimum true error could be verified as  
+* For binary classification, the minimum true error could be achieved by the bayes optimal predictor:  
 $$f_{\mathcal{D}}(x) =
 \left\{\begin{matrix}
 1 & if\ \mathbb{P}[y=1|x]>1/2 \\
 0 & otherwise
-\end{matrix}$$  
-Hence,  
-$$ L_{ \mathcal{D}}(f_{ \mathcal{D} }) = \mathop{min}_{h' \in \mathcal{H}}L_{ \mathcal{D}}(h')$$  
-The role of the bayes optimal predictor $$f_{ \mathcal{D} }(x)$$ is similar to the previous "true labeling function" $$f(x)$$. The learning algorithm is expected to find a predictor that is as good as the Bayes optimal to make the minimum possible true error. Therefore, we could formally define the agnostic PAC learning model as:
+\end{matrix}$$
+* Hence, $$  \mathop{min}_{h' \in \mathcal{H}}L_{ \mathcal{D}}(h') = L_{ \mathcal{D}}(f_{ \mathcal{D} }) $$
+* The learning algorithm is expected to find a predictor that is as good as the Bayes optimal to make the minimum possible true error.
+
+Based on the new definitioin of the generalization error, we could formally define the agnostic PAC learning model as:
 
 **Agnostic PAC learnability**
 A hypothesis class $$ \mathcal{H}$$ is agnostic PAC learnable if there exists a function $$m_{ \mathcal{H} }: (0,1)^2 \rightarrow \mathbb{N}$$ and a learning algorithm with the following property: For every $$\epsilon, \delta \in (0,1)$$, for every distribution $$ \mathcal{D}$$ over $$ \chi \times \mathcal{Y}$$, when running the algorithm on $$ m \ge m_{ \mathcal{H} }(\epsilon, \delta)$$ i.i.d examples generated by $$ \mathcal{D}$$ will get a hypothesis $$h$$ such that, with probability of at least $$1-\delta$$ (over the choice of all possible $$m$$-tupled sample), $$L_{ \mathcal{D}}(h)\le \mathop{min}_{h' \in \mathcal{H}}L_{ \mathcal{D}}(h') + \epsilon$$.
 
-Clearly, agnostic PAC learning model is just a generalization of the previous PAC learning model. If the realizability assumption holds, agnostic PAC learning provides the same guarantee as PAC learning. When the realizability assumption does not
-hold, no learner can guarantee an arbitrarily small error. Nevertheless, under the definition of agnostic PAC learning, a learner can still declare success if its error is not much larger than the best error achievable by a predictor from the class $$ \mathcal{H}$$.
+* If the realizability assumption holds, agnostic PAC learning provides the same guarantee as PAC learning
+* When the realizability assumption does not hold, no learner can guarantee an arbitrarily small error.
+* Nevertheless, under the definition of agnostic PAC learning, a learner can still declare success if its error is not much larger than the best error achievable by a predictor from the class $$ \mathcal{H}$$.
+
+<!-- ### The Scope of Learning Problems Modeled -->
+<!-- We next extend our model so that it can be applied to a wide variety of learning tasks in addition to binary classification task. -->
+<!--  -->
+<!-- * Multiclass Classification: We can simply generalize the binary classification task, where $$ \mathcal{Y}=\{0,1\}$$, to multiclass classification by enabling $$ \mathcal{Y}$$ to be a larger finite set. An example is document classification -->
+<!--  -->
+<!-- * Regression: In In this task, one wishes to find some simple pattern in the data -- a functional relationship between the $$\chi$$ and $$ \mathcal{Y}$$ components of the data. For example, one wishes to find a linear function that best predicts a man's height on the basis of his weight and his age. The domain set $$\chi$$ is a subset of $$ \mathbb{R}^2$$ and the target set $$ \mathcal{Y}$$ is the set of real numbers. Like classification task, the learner still gets a finite sequence of $$(x,y)$$ pairs and is required to output a function from $$\chi$$ to $$ \mathcal{Y}$$. However, the loss of a hypothesis $$h$$ should be defined differently. A plausible option is *expected square difference*:   -->
+<!-- $$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{E}}_{(x,y)\sim \mathcal{D}}(h(x)-y)^2$$ -->
+<!--  -->
+<!-- #### Generalized Loss Functions -->
+<!-- To accommodate a wide range of learning tasks, we generalize our formalism of the loss of a hypothesis follows:   -->
+<!-- Given any set $$ \mathcal{H}$$ (hypothesis class) and some domain $$Z$$, let $$\ell$$ be any function from $$ \mathcal{H}\times Z$$ to the set of nonnegative real numbers, $$\ell: \mathcal{H}\times Z \rightarrow \mathbb{R}_+$$. -->
+<!--  -->
+<!-- Note that for classification and regression tasks, $$Z = \chi \times \mathcal{Y}$$. However, in unsupervised learning tasks, where the true labels are not accesable, $$Z = \chi$$. -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->

@@ -21,5 +21,5 @@ Let's first describe a formal model capturing statistical learning tasks.
 $$L_{ \mathcal{D},f }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{x\sim \mathcal{D}}[h(x)\neq f(x)] \mathop{=}^{def} \mathcal{D}(\{x: h(x)\neq f(x)\})$$. 
 * The notation $$ \mathcal{D}(A)$$ assigns a probability determining how likely it is to observe a point $$x \in A$$, where $$A \subseteq \chi$$ is an event.
 * In other words, with respect to the distribution $$ \mathcal{D}$$ and the correct labeling function $$f$$, the error of such $$h$$ is the probability of a randomly sampled example $$x$$ belonging to the set $$\{x| h(x)\neq f(x)\}$$
-* $$L_{ \mathcal{D},f }(h)$$ is also called the *genralization error*, the *risk*, the *true error* of $$h$$
+* $$L_{ \mathcal{D},f }(h)$$ is also called the *generalization error*, the *risk*, the *true error* of $$h$$
 * The letter $$L$$ is used since we view the error as a *loss* of the learner.
