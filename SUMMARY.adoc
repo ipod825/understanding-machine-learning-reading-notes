@@ -1,11 +1,12 @@
 # Summary
 
-* [Preface](README.md)
-* [Introduction](chapter1.md)
-* [A Gentle Start](chapter2.md)
-    * [The Statistical Learning Framework](chapter2.1.md)
-    * [Empirical Risk Minimization](chapter2.2.md)
-    * [Empirical Risk Minimization with Inductive Bias](chapter2.3.md)
-* [A Formal Learning Model](chapter3.md)
-    * [PAC Learning](chapter3.1.md)
-    * [General PAC Learning Model](chapter3.2.md)
+. link:README.adoc[Preface]
+. link:chapter1.adoc[Introduction]
+. link:chapter2.adoc[A Gentle Start]
+.. link:chapter2.1.adoc[The Statistical Learning Framework]
+.. link:chapter2.2.adoc[Empirical Risk Minimization]
+.. link:chapter2.3.adoc[Empirical Risk Minimization with Inductive Bias]
+. link:chapter3.adoc[A Formal Learning Model]
+.. link:chapter3.1.adoc[PAC Learning]
+.. link:chapter3.2.adoc[General PAC Learning Model]
+
