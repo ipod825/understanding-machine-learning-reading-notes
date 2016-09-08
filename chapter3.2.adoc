@@ -3,14 +3,17 @@ In the previous PAC learning model, we hold realizability assumption and focus o
 
 ### Releasing the Realizability Assumption
 The realizability assumption is two-fold.
+
 * We assume that there is an unique "target labeling function" $$f(x)$$ determining the labels.
 * We assume that $$\exists h^* \in \mathcal{H}$$ such that $$ \mathbb{P}_{x\sim \mathcal{D}}[h^*(x)=f(x)]=1$$.
 
 Both assumption might not be realistic.
-* The labels might not be determined solely by the feature we extract. It is possible that we get two two data points with same $$x$$ but different $$y$$.
+
+* The labels might not be determined solely by the feature we extract. It is possible that we get two data points with same $$x$$ but different $$y$$.
 * The hypothesis in the hypothesis class might not be strong enough to fit all data.
 
 To relax the realizability assumption, we will replace the "target labeling function" $$f(x)$$ with a data-labels generating distribution.
+
 * Formally, from now on, let $$ \mathcal{D}$$ be a probability distribution over $$\chi \times \mathcal{Y}$$.
 * $$ \mathcal{D}$$ is a joint distribution over domain points and labels.
 * $$ \mathcal{D}$$ can be viewed as being composed of two parts:
@@ -19,12 +22,12 @@ To relax the realizability assumption, we will replace the "target labeling func
 * Clearly, such modeling allows for two data-points that share the same feature to belong to different categories.
 
 #### The Empirical and the True Error Revised
-* Previously, the true error is defined as:  
+[[trueErrDef]]
+* Previously, the true error is defined as: +  
 $$L_{ \mathcal{D},f }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{x\sim \mathcal{D}}[h(x)\neq f(x)]\mathop{=}^{def} \mathcal{D}(\{x: h(x)\neq f(x)\})$$
-<a name="LossDefinition"></a>
-* Since we now no longer have $$f(x)$$, we redefine the true error as:  
+* Since we now no longer have $$f(x)$$, we redefine the true error as: + 
 $$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{P}}_{(x,y)\sim \mathcal{D}}[h(x)\neq y]\mathop{=}^{def} \mathcal{D}(\{(x,y): h(x)\neq y\})$$
-* The definition of the empirical error remains the same:  
+* The definition of the empirical error remains the same: +
 $$L_S(h) := \frac{|\{i \in [m]: h(x_i)\neq y_i\}|}{m}$$, where $$[m]=\{1,\dots,m\}$$
 
 #### Agnostic PAC Learnability
@@ -63,26 +66,27 @@ We next extend our model so that it can be applied to a wide variety of learning
 
 #### Generalized Loss Functions
 To accommodate a wide range of learning tasks, we generalize our formalism of the loss of a hypothesis follows:  
+
 * Given any set $$ \mathcal{H}$$ (hypothesis class) and some domain $$Z$$, let $$\ell$$ be any function from $$ \mathcal{H}\times Z$$ to the set of nonnegative real numbers, $$\ell: \mathcal{H}\times Z \rightarrow \mathbb{R}_+$$
 * For classification and regression tasks, $$Z = \chi \times \mathcal{Y}$$
 * For unsupervised learning tasks, where the true labels are not accessible, $$Z = \chi$$.
-* The *risk function* is then defined to be the expected loss of a classifier:  
-$$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{E}}_{z \sim \mathcal{D}}\ell(h,z)$$
+* The *risk function* is then defined to be the expected loss of a classifier: +
+$$L_{ \mathcal{D} }(h) \mathop{=}^{def} \mathop{\mathbb{E}}_{z \sim \mathcal{D}}[\ell(h,z)]$$
 * The *empirical risk* is also defined as the expected loss over a given sample:  
 $$L_S(h) \mathop{=}^{def}\frac{1}{m}\mathop{\sum}_{i=1}^{m}\ell(h,z_i),\ where\ S=(z_1,\dots,z_m)\in Z^m$$
 * The loss functions used in the preceding examples of classification and regression tasks are as follows:
-    * 0-1 loss ($$Z=\chi \times \mathcal{Y}$$):  
+    ** 0-1 loss ($$Z=\chi \times \mathcal{Y}$$): + 
     $$\ell_{0-1}(h,(x,y))\mathop{=}^{def}\left\{
     \begin{matrix}
     0 & if\ h(x)= y\\
     1 & if\ h(x)\ne y
     \end{matrix}$$
-    * Square Loss:  
+    ** Square Loss:  
     $$\ell_{sq}(h,(x,y))\mathop{=}^def(h(x)-y)^2$$
-* We should note that for classification, the expectation definition coincides with the [prefious definitioin](#LossDefinition). Proof:  
+* We should note that for classification, the expectation definition coincides with the xref:trueErrDef[previous definitioin]. Proof: +
 $$\mathop{\mathbb{E}}_{(x,y)\sim \mathcal{D}}[\ell_{0-1}(h,(x,y))] = 1\times \mathop{\mathbb{P}}_{(x,y)\sim \mathcal{D}}[h(x)\ne y]+0 = \mathop{\mathbb{P}}_{(x,y)\sim \mathcal{D}}[h(x)\ne y]$$
 
 To summarize, we formally define agnostic PAC learnability for general loss functions as:  
-**Agnostic PAC Learnability for General Loss Functions**
-A hypothesis class $$ \mathcal{H}$$ is agnostic PAC learnable with respect to a set $$Z$$ and a loss function $$\ell: \mathcal{H}\times Z\rightarrow \mathbb{R}_+$$, if there exists a function $$m_{ \mathcal{H} }: (0,1)^2 \rightarrow \mathbb{N}$$ and a learning algorithm with the following property: For every $$\epsilon, \delta \in (0,1)$$, for every distribution $$ \mathcal{D}$$ over $$Z$$, when running the algorithm on $$ m \ge m_{ \mathcal{H} }(\epsilon, \delta)$$ i.i.d examples generated by $$ \mathcal{D}$$ will get a hypothesis $$h$$ such that, with probability of at least $$1-\delta$$ (over the choice of all possible $$m$$-tuple sample), $$L_{ \mathcal{D}}(h)\le \mathop{min}_{h' \in \mathcal{H}}L_{ \mathcal{D}}(h') + \epsilon$$, where $$L_{D}(h)= \mathbb{E}_{z\sim \mathcal{D}[\ell(h,z)]}$$
 
+**Agnostic PAC Learnability for General Loss Functions**
+A hypothesis class $$ \mathcal{H}$$ is agnostic PAC learnable with respect to a set $$Z$$ and a loss function $$\ell: \mathcal{H}\times Z\rightarrow \mathbb{R}_+$$, if there exists a function $$m_{ \mathcal{H} }: (0,1)^2 \rightarrow \mathbb{N}$$ and a learning algorithm with the following property: For every $$\epsilon, \delta \in (0,1)$$, for every distribution $$ \mathcal{D}$$ over $$Z$$, when running the algorithm on $$ m \ge m_{ \mathcal{H} }(\epsilon, \delta)$$ i.i.d examples generated by $$ \mathcal{D}$$ will get a hypothesis $$h$$ such that, with probability of at least $$1-\delta$$ (over the choice of all possible $$m$$-tuple sample), $$L_{ \mathcal{D}}(h)\le \mathop{min}_{h' \in \mathcal{H}}L_{ \mathcal{D}}(h') + \epsilon$$, where $$L_{D}(h)= \mathbb{E}_{z\sim \mathcal{D}} [\ell(h,z)]$$

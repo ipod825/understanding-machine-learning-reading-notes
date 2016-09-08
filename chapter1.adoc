@@ -1,13 +1,13 @@
-# Introduction
+= Introduction
 
-## What Is Learning?
-### Learning by Memorization 
+== What Is Learning?
+=== Learning by Memorization 
 Take spam e-mails filtering as an example. The learning machine will simply memorize all previous e-mails that had been labeled as spam e-mails by the human user. When a new e-mail arrives, the machine will search through all previous spam e-mails. If a match is found, the new e-mail is trashed. Otherwise, it will be kept in the user's inbox folder.
 
-### Inductive Reasoning (Inference)
+=== Inductive Reasoning (Inference)
 "Learning by memorization" does not generalized well because it can not label unseen instances. To achieve better generalization on the spam e-mails filtering task, a better way is to extract a set of key words from the previous spam e-mails and detect whether a new e-mail contains one or more of these key words. Such method would probably be able to predict the label of unseen e-mails.
 
-A learner that can progress from individual examples to broader generalization is referred to as *inductive reasoning* or *inductive inference*. Though it seems to be a better choice, it might lead us to false conclusions. Consider the Pigeon Superstition Experiment[^1]:
+A learner that can progress from individual examples to broader generalization is referred to as *inductive reasoning* or *inductive inference*. Though it seems to be a better choice, it might lead us to false conclusions. Consider the Pigeon Superstition Experiment footnote:[See: http://psychclassics.yorku.ca/Skinner/Pigeon]:
 
 In an experiment performed by the psychologist B. F. Skinner, he placed a bunch of hungry pigeons in a cage. Food was automatically delivered to the pigeons at regular intervals. When the food was first delivered, each pigeon was engaged in some activity (pecking, turning the head, etc.). The arrival of the food make the pigeons believe that their action leads to the food delivery and hence they spend more time doing their specific action. That, in turn, makes their specific activity coincide with the food delivery more frequently. In the end, the pigeons continue to perform the same actions diligently.
 
@@ -16,13 +16,13 @@ So, the pigeons are not performing useful learning. But what makes a useful lear
 In experiments carried out by Garcia & Koelling, they either feed the rats with food that leads to nausea or impose unpleasant stimulus on the rats after non-poisonous food consumption. It was observed that rats learn to avoid poisonous food. However, even after repeated trials in which the consumption of some food is followed by the administration of unpleasant electrical shock, the rats do not tend to avoid that non-poisonous food. The rats seem to have some "built-in" prior knowledge telling them that, while temporal correlation
 between food and nausea can be causal, it is unlikely that there would be a causal relationship between food consumption and electrical shocks.
 
-It turns out that the  incorporation of  prior  knowledge, biasing the learning process, is inevitable for the success of learning algorithms (this is formally stated and proved as the "No-Free-Lunch theorem" in Chapter 5 in the book). Roughly speaking, the stronger the bias is, the easier it is to learn from further examples. However, the stronger bias also cause less flexibility for learning.
+It turns out that the  incorporation of  prior  knowledge, biasing the learning process, is inevitable for the success of learning algorithms (this is formally stated and proved as the "No-Free-Lunch theorem" in link:chapter5.adoc[chapter 5] in the book). Roughly speaking, the stronger the bias is, the easier it is to learn from further examples. However, the stronger bias also cause less flexibility for learning.
 
-## When Do We Need Machine Learning?
+== When Do We Need Machine Learning?
 * Tasks that are too complex to program by hands (e.g., driving)
 * Tasks that might change over time or from one user to another (e.g., speech recognition)
 
-## Types of Learning
+== Types of Learning
 * Supervised/Unsupervised Learning: Whether the training data are labeled
     * Supervised Learning Example: Spam e-mails filtering
     * Unsupervised Learning example: Clustering a data set into subsets of similar objects 
@@ -36,12 +36,10 @@ It turns out that the  incorporation of  prior  knowledge, biasing the learning 
 
 This book focuses on supervised statistical batch learning with a passive learner.
 
-## Relations to Other Fields
+== Relations to Other Fields
 * Difference from AI: Machine learning emphasizes more on using strength of computer to complement human intelligence
 * Different from Statistics
     * Machine learning emphasizes more on learning meaningful pattern (hypothesis) than doing hypothesis test
     * Machine learning emphasizes more on algorithmic issues, computation efficiency
     * Learning theory focuses on finite sample bounds rather than asymptotic behavior, i.e., infinite samples
     * Machine learning assume as little as possible about the nature of data distribution
-
-[^1] See: http://psychclassics.yorku.ca/Skinner/Pigeon

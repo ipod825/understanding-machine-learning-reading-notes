@@ -1,5 +1,3 @@
-Understanding Machine Learning - Reading Notes
-=======
+# Understanding Machine Learning - Reading Notes
 
-My notes for reading the book **Understanding Machine Learning:
-From Theory to Algorithms**
+My notes for reading the book **Understanding Machine Learning: From Theory to Algorithms**

@@ -1,4 +1,4 @@
-# Summary
+= Summary
 
 . link:README.adoc[Preface]
 . link:chapter1.adoc[Introduction]
@@ -9,4 +9,6 @@
 . link:chapter3.adoc[A Formal Learning Model]
 .. link:chapter3.1.adoc[PAC Learning]
 .. link:chapter3.2.adoc[General PAC Learning Model]
-
+. link:chapter4.adoc[Learning via Uniform Convergence]
+. link:chapter5.adoc[The Bias-Complexity Tradeoff]
+.. link:chapter5.1.adoc[The No-Free-Lunch Theorem]
