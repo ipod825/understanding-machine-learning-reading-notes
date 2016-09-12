@@ -1,0 +1,70 @@
+## Finite Classes Are Agnostic PAC Learnable
+
+With Corollary 4.4, we could prove that every finite hypothesis class is agnostic PAC learnable if it has holds uniform convergence property.
+
+The proof is similar to how we prove that every finite hypothesis is PAC learnable:
+
+* We write down the probability of "violation" of uniform convergence and set an inequality equation to upper bound on it
+* By solving the inequality equation, we derive the number of samples required to ensure uniform convergence at certain confidence level
+
+
+### Derivation of The Inequality
+* By definition, if uniform convergence holds for $$\mathcal{H}$$, then + 
+$$\mathcal{D}^m(\{S:\forall h\in \mathcal{H}, |L_S(h)-L_{\mathcal{D}}(h)|\le\epsilon\})\ge 1-\delta$$ 
+* Equivalently, we want to bound the probability that uniform convergence does not holds by $$\epsilon$$: +
+$$\mathcal{D}^m(\{S:\exists h\in \mathcal{H}, |L_S(h)-L_{\mathcal{d}}(h)|>\epsilon\})< \delta$$
+* Writing $$\{S:\exists h\in \mathcal{H}, |L_s(h)-L_{\mathcal{d}}(h)|>\epsilon\} = \cup_{h\in \mcathcal{H}}\{S:|L_s(h)-L_{\mathcal{D}}(h)|>\epsilon\}$$
+* Applying xref:chapter2-3#lemma_union_bound[union bound], we obtain: +
+$$\mathcal{D}^m(\{S:\exists h\in \mathcal{H}, |L_S(h)-L_{\mathcal{D}}(h)|>\epsilon\}) \le \mathop{\sum}_{h\in\mathcal{H}}\mathcal{D}^m(\{S:|L_s(h)-L_{\mathcal{d}}(h)|>\epsilon\})$$
+* We will then argue that +
+$$\mathop{\sum}_{h\in\mathcal{H}}\mathcal{D}^m(\{S:|L_s(h)-L_{\mathcal{d}}(h)|>\epsilon\}) \le \delta$$ +
+as long as $$m$$ is larger than a amount (determined by \epsilon and \delta). 
+
+Before the derivation, let's recall and compare what we did when proving all finite hypothesis class are PAC learnable: 
+
+* The probability of overfitting is written as $$\mathcal{D}^m(\{S:L_{\mathcal{D},f}(h_S)>\epsilon\})$$.
+* We also bound the overfitting probability by $$\delta$$: +
+$$\mathcal{D}^m(\{S:L_{\mathcal{D},f}(h_S)>\epsilon\})<\delta$$
+* We then argue that: +
+$$\{S:L_{\mathcal{D},f}(h_S)>\epsilon\} \subseteq \mathop{\cup}_{h\in\mathcal{H_B}}\{S|_x:L_S(h)=0\}$$, where +
+$$\mathcal{H}_B=\{h\in\mathcal{H}:L_{\mathcal{D},f(h)}>\epsilon\}$$
+* Applying union bound, we obtain: +
+$$\mathcal{D}^m(\{S|_x: L_{ \mathcal{D},f }(h_s)>\epsilon\}) \le \mathop{\sum}_{h \in \mathcal{H}_B} \mathcal{D}^m(\{S|_x: L_s(h)=0\})$$
+
+* Note that we considered a stricter set when deriving the bound of PAC learnability:
+$$\mathop{\cup}_{h\in\mathcal{H_B}}\{S|_x:L_S(h)=0\} \subseteq \cup_{h\in \mcathcal{H}}\{S:|L_s(h)-L_{\mathcal{D}}(h)|>\epsilon\}$$, 
+* However, we should remember that PAC learnability was derived when the realizability assumption holds.
+
+### Derivation of the Result
+We now show that the probability of "violation" of uniform convergence is small when the sample size is large enough.
+
+* The upper bound of the probability: +
+$$\mathop{\sum}_{h\in\mathcal{H}}\mathcal{D}^m(\{S:|L_s(h)-L_{\mathcal{D}}(h)|>\epsilon\})$$
+* Recall that $$L_S(h)=\frac{1}{m}\Sigma_{i=1}^{m}\ell(h,z_i)$$ and $$L_{\mathcal{D}}(h)=\mathbb{E}_{z\sim\mathcal{D}}[\ell(h,z)]$$, by the linearity of expectation, it follows that $$L_{\mathcal{D}}(h)$$ is the expectation of $$L_S(h)$$
+* Hence, $$|L_S(h)-L_{\mathcal{D}}(h)|$$ is the deviation of the random variable $$L_S(h)$$ from its expectation.
+* Since $$L_S(h)$$ is the empirical average over $$m$$ i.i.d random variables, by the __law of large numbers__, when $$m$$ goes to infinity, it will be $$L_S(h)$$ converges to its expectation.
+* Hence, asymptoticly, the probability of violation of uniform convergence is small when $$m$$ approaches infinity. However, this does not quantify how large $$m$$ should be given $$\epsilon$$ and $$\delta$$
+* To describe the relation between $$m$$, $$\epsilon$$, and $$\delta$$, we adopt **Hoeffding's Inequality** to get a simpler upper bound.
+
+[[lemma_hoeffding_inequality]]
+* Hoeffding's inequality: Let $$\theta_1,\cdots,\theta_m$$ be a sequence of i.i.d. random variables and assume that for all $$i$$, $$\mathbb{E}[\theta_i]=\mu$$ and $$\mathbb{P}[a\le\theta_i\leb]=1$$. Then, for any $$\epsilon >0$$  + 
+$$\mathbb{P}\left[\left|\frac{1}{m}\mathop{\sum}^m\theta_i-\mu\right|>\epsilon\right]\le 2exp(-2m\epsilon^2/(b-a)^2)$$
+
+* Assume that the range of $$\ell$$ is $$[0,1]$$ and write $$\ell(h,z_i)=\theta_i$$, and $$L_{\mathcal{D}}(h)=\mu$$, we have: +
+$$\mathcal{D}^m(\{S:|L_s(h)-L_{\mathcal{D}}(h)|>\epsilon\})\le 2exp(-2m\epsilon^2)$$
+
+* And the total upper bound is:
+$$\mathop{\sum}_{h\in\mathcal{H}}\mathcal{D}^m(\{S:|L_s(h)-L_{\mathcal{D}}(h)|>\epsilon\}) \le \mathop{\sum}_{h\in\mathcal{H}} 2exp(-2m\epsilon^2)=2|\mathcal{H}|exp(-2m\epsilon^2)$$
+
+* Solving the equation $$2|\mathcal{H}|exp(-2m\epsilon^2)\le \delta$$, we have:
+$$m\ge \frac{log(2|\mathcal{H}|/\delta)}{2\epsilon^2}$$
+
+**COROLLARY 4.6**
+[[corollary4.6]]
+Let $$ \mathcal{H}$$ be a finite hypothesis class. Let $$Z$$ be a domain and let $$\ell:\mathcal{H}\times Z \rightarrow [0,1]$$ be a los function. Then $$\mathcal{H}$$ enjoys the uniform convergence property with sample complexity +
+$$m_{\mathcal{H}}^{UC}(\epsilon, \delta) \le \left\lceil \frac{log(2|\mathcal{H}|/\delta)}{2\epsilon^2} \right\rceil$$ +
+Furthermore, $$\mathcal{H}$$ is agnostically PAC learnable using the ERM algorithm with sample complexity 
+// $$m_{\mathcal{H}}(\epsilon,\delta)\le $m_{\mathcal{H}}^{UC}(\epsilon/2, \delta) \le \left\lceil \frac{2*log(2|\mathcal{H}|/\delta)}{\epsilon^2} \right\rceil$$
+$$m_{\mathcal{H}}(\epsilon,\delta)\le m_{\mathcal{H}}^{UC}(\epsilon/2, \delta) \le \left\lceil \frac{2*log(2|\mathcal{H}|/\delta)}{\epsilon^2} \right\rceil$$
+
+

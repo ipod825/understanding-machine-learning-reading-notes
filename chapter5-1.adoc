@@ -1,0 +1,12 @@
+## The No-Free-Lunch Theorm
+
+In this part we prove that there is no universal learner. We do this by showing that no learner can succeed on all learning tasks, as formalized in the following theorem:
+
+
+**No-Free-Lunch**
+Let $$A$$ be any learning algorithm for the task of binary classification with respect to the 0 - 1 loss over a domain $$\chi$$. Let $$m$$ be any number smaller than $$|\chi|/2$$, respecting a training size. Then, there exists a distribution $$ \mathcal{D}$$ over $$\chi \times \{0,1\}$$ such that:
+
+1. There exists a function $$f: \chi \rightarrow \{0,1\}$$ with $$ L_{ \mathcal{D}}(f)=0$$
+2. With probability of at least 1/7 over the choice of $$S\sim \mathcal{D}^m$$ we have that $$L_{ \mathcal{D}}(A(S))\ge 1/8 $$
+
+This theorem states that for every learner, there exists a task on which it fails, even though that task can be successfully learned by another learner. A trivial successful learner in this case would be an ERM learner with the hypothesis class $$\mathcal{H}=\{f\}$$, or more generally, ERM with respect to any  finite hypothesis class that contains $$f$$ and whose sample size satisfies the equation $$m\ge 8log(7| \mathcal{H}|/6)$$. 

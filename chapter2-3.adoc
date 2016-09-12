@@ -31,10 +31,11 @@ Note that the first assumptions implies $$ERM_{ \mathcal{H} }$$ can always find 
 
 We will also utilized two lemma:
 
+[[lemma_union_bound]]
 * Union Bound: For any two sets $$A,B$$ and a distribution $$ \mathcal{D}$$ we have +
 $$ \mathcal{D}(A\cup B) < \mathcal{D}(A)+ \mathcal{D}(B)$$
 
-[[lemma2]]
+[[lemma_taylor_inequality]]
 * $$1+x < e^x$$, Proof: +
 $$e^x = \mathop{\sum}_{n=0}^{\infty}\frac{x}{n!}=1+x+\frac{x^2}{2}+\dots \ge 1+x$$
 
@@ -53,7 +54,7 @@ $$\mathcal{D}^m(\{S|_x: L_{ \mathcal{D},f }(h_s)>\epsilon\})<\delta$$ +
 In other words, overfitting happens when we are unlucky to get a non-representative sample that leads to great true error. What we want to do is to bound the probability of such "unluckiness" to a small value $$\delta$$.
 
 
-==== Derivation of the result
+==== Derivation of the Result
 To derive the upper bound of $$\mathcal{D}^m(\{S|_x: L_{ \mathcal{D},f }(h_s)>\epsilon\})$$, we first analyze the "bad sample" set $$\{S|_x: L_{ \mathcal{D},f }(h_s)>\epsilon\}$$.
 
 In the following image, we order all hypothesis and sample sequentially. Each cell records the empirical risk $$L_S(h)$$. Though the true error is not shown, each "bad" hypothesis $$h$$ such that $$L_{ \mathcal{D},f }(h)>\epsilon$$ are highlighted in red color. The cells highlighted in light green records which hypothesis $$ERM_{ \mathcal{H} }$$ selects for each sample. Overfitting happens when a bad hypothesis is selected (text highlighted in red color).
@@ -94,7 +95,7 @@ $$ \mathcal{D}(\{ x_i: h(x_i)=f(x_i)\}) = 1-L_{( \mathcal{D},f)}(h) \le 1-\epsil
 
 The last inequality holds bacause we are considering hypothesis $$ h \in \mathcal{H_B}$$, and by definition, each of these "bad" hypothesis satisfies that $$ L_{( \mathcal{D},f)}(h) > \epsilon $$.
 
-By xref:lemma2[lemma2]($$1+x<e^x$$), we have
+By the lemma xref:lemma_taylor_inequality[$$1+x<e^x$$], we have
 
 $$ {D}^m(\{S|x: L_s(h)=0\})  \le (1-\epsilon)^m \le e^{-\epsilon m}$$
 
