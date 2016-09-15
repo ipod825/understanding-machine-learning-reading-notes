@@ -20,4 +20,5 @@ In the below, we formally state that if a hypothesis class has **uniform converg
 The term __uniform__ here refers to having a  fixed sample size that  works for all members of $$\mathcal{H}$$ and over all possible probability distributions over the domain.
 
 The following corollary follows directly from Lemma 4.2 and the definition of uniform convergence:
-**COROLLARY 4.4** If a hypothesis class has the uniform convergence property with a function $$m_{\mathcal{H}}^{UC}$$ then the class is agnostic PAC learnable with the sample complexity $$\mathcal{H}(\epsilon, \delta) \le m_{\mathcal{H}}^{UC}(\epsilon/2, \delta)$$. Furthermore, $$ERM_{\mathcal{H}}$$ is a successful agnostic PAC learner for $$\mathcal{H}$$
+[[corrollary_uc_aglearn]]
+**COROLLARY 4.4** If a hypothesis class has the uniform convergence property with a function $$m_{\mathcal{H}}^{UC}$$ then the class is agnostic PAC learnable with the sample complexity $$m_{\mathcal{H}}(\epsilon, \delta) \le m_{\mathcal{H}}^{UC}(\epsilon/2, \delta)$$. Furthermore, $$ERM_{\mathcal{H}}$$ is a successful agnostic PAC learner for $$\mathcal{H}$$

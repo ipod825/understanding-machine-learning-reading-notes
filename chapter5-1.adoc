@@ -1,12 +1,103 @@
 ## The No-Free-Lunch Theorm
 
-In this part we prove that there is no universal learner. We do this by showing that no learner can succeed on all learning tasks, as formalized in the following theorem:
+In this section we prove that there is no universal learner. We do this by showing that no learner can succeed on all learning tasks, as formalized in the following theorem:
 
 
-**No-Free-Lunch**
+**Theorem 5.1 (No-Free-Lunch)**
 Let $$A$$ be any learning algorithm for the task of binary classification with respect to the 0 - 1 loss over a domain $$\chi$$. Let $$m$$ be any number smaller than $$|\chi|/2$$, respecting a training size. Then, there exists a distribution $$ \mathcal{D}$$ over $$\chi \times \{0,1\}$$ such that:
 
 1. There exists a function $$f: \chi \rightarrow \{0,1\}$$ with $$ L_{ \mathcal{D}}(f)=0$$
 2. With probability of at least 1/7 over the choice of $$S\sim \mathcal{D}^m$$ we have that $$L_{ \mathcal{D}}(A(S))\ge 1/8 $$
 
-This theorem states that for every learner, there exists a task on which it fails, even though that task can be successfully learned by another learner. A trivial successful learner in this case would be an ERM learner with the hypothesis class $$\mathcal{H}=\{f\}$$, or more generally, ERM with respect to any  finite hypothesis class that contains $$f$$ and whose sample size satisfies the equation $$m\ge 8log(7| \mathcal{H}|/6)$$. 
+Note that the two condition is based on PAC model instead of agnostic PAC model. So the theorem only deals with PAC learnability (i.e. hypothesis class with no bias is not PAC learnable).
+
+This theorem states that for every learner, there exists a task on which it fails, even though that task can be successfully learned by another learner. A trivial successful learner in this case would be an ERM learner with the hypothesis class $$\mathcal{H}=\{f\}$$, or more generally, ERM with respect to any finite hypothesis class that contains $$f$$ and whose sample size satisfies the equation $$m\ge 8log(7| \mathcal{H}|/6)$$. 
+
+
+Before proving the theorem, let's first see how it relates to the need of prior knowledge.
+
+**COROLLARY 5.2**
+Let $$\chi$$ be an infinite domain set and let $$\mathcal{H}$$ be the set of all functions from $$\chi$$ to $$\{0,1\}$$. Then $$\mathcal{H}$$ is not PAC learnable. 
+
+Proof:
+Assume, by way of contradiction, that $$\mathcal{H}$$ is PAC learnable. Then by definition, there must be some learning algorithm $$A$$ and an integer $$m=m(\epsilon,\delta)$$, such that for any distribution $$\mathcal{D}$$ over $$\chi\times\{0,1\}$$, if the realizability assumption holds (i.e. $$\exists f: \chi \rightarrow \{0,1\}$$, $$L_{\mathcal{D}}(f)=0$$), then with probability greater than $$1-\delta$$ when $$A$$ is applied to sample $$S$$ of size $$m$$, generated i.i.d. by $$\mathcal{D}$$, $$L_{\mathcal{D}}(A(S))<\epsilon$$. We can arbitrarily choose some $$\epsilon<1/8$$ and $$\delta<1/7$$. However, applying the No-Free-Lunch theorem, since $$|\chi|>2m$$, for every learning algorithm, there exists a distribution $$\mathcal{D}$$ such that with probability greater than $$1/7>\delta$$, $$L_{\mathcal{D}}(A(S))>1/8>\epsilon$$, which leads to the desired contradiction. 
+
+### Proof of the No-Free-Lunch Theorem
+
+The goal of the proof is to **design a distribution** $$\mathcal{D}$$ over $$\chi\times\{0,1\}$$ such that:
+
+1. There exists a function $$f: \chi \rightarrow \{0,1\}$$ with $$ L_{ \mathcal{D}}(f)=0$$
+2. With probability of at least 1/7 over the choice of $$S\sim \mathcal{D}^m$$ we have that $$L_{ \mathcal{D}}(A(S))\ge 1/8 $$
+
+To do so, we intentionally choose a special family of distribution:
+
+Let $$C$$ be a subset of $$\chi$$ of size $$2m$$, then there will be $$T=2^{2m}$$ functions from $$C$$ to $$\{0,1\}$$, denoted as $$f_1,\cdots,f_T$$. For each such function, let $$\mathcal{D}_i$$ be a distribution over $$C\times \{0,1\}$$ defined by: +
+$$\mathcal{D}_i(\{x,y\})=\left\{
+\begin{matrix}
+1/|C| & if\ y=f_i(x)\\
+0 & otherwise.
+\end{matrix}$$
+
+Clearly, $$L_\mathcal{D}_i(f_i)=0$$, hence, $$\forall i, \mathcal{D}_i$$ satisfies the first condition of the theorem.
+To prove that the second condition holds, we will show that: +
+$$\mathop{max}_{i\in[T]} \mathop{\mathbb{E}}_{S\sim\mathcal{D}_i^m}[L_{\mathcal{D}_i}(A(S))] \ge 1/4$$
+
+This guarantees that we could always design a distribution $$\mathcal{D}$$ (i.e. the one leading to max expectation error) such that for every algorithm $$A$$, +
+$$\mathop{\mathbb{E}}_{S\sim\mathcal{D}^m}[L_{\mathcal{D}}(A(S))] \ge 1/4$$
+
+It can be verified that the preceding suffices for showing +
+$$\mathbb{P}[L_{\mathcal{D}}(A(S))\ge 1/8]\ge 1/7$$, which finishes our proof.
+
+We should point out that the learner's holding no bias enables us to freely choose a distribution from $$\mathcal{D}_i,\cdots,\mathcal{D}_T$$. If the learner restrict the hypothesis class within some subset of $$f_1,\cdots,f_T$$, we might not be able to choose a distribution that satisfies the first condition.
+
+We now turn to prove the equation: +
+$$\mathop{max}_{i\in[T]} \mathop{\mathbb{E}}_{S\sim\mathcal{D}_i^m}[L_{\mathcal{D}_i}(A(S))] \ge 1/4$$
+
+There are $$k=(2m)^m$$ possible sequences of $$m$$ examples from $$C$$, denoted by $$S_1,\cdots,S_k$$. Also, if $$S_j=(x_1,\cdots,x_m)$$, we denote by $$S_j^i$$ the sequence containing the instances in $$S_j$$ labeled by the function $$f_i$$, namely, $$S_j^i=((x_1,f_i(x_1)),\cdots,(x_m,f_i(x_m)))$$.
+
+If we decide to challenge the learner with $$\mathcal{D}_i$$, the possible training sets it can receive are $$S_1^i,\cdots,S_k^i$$. By our definition of $$\mathcal{D}_i$$, all these training sets have the same probability of being sampled footnote:[The easiness for calculation of expectation is the reason that we choose uniform distribution family.]. Therefore, +
+$$\mathop{\mathbb{E}}_{S\sim\mathcal{D}_i^m}[L_{\mathcal{D}_i}(A(S))]=\frac{1}{k}\mathop{\sum}_{j=1}^k L_{\mathcal{D}_i}(A(S_j^i))$$ 
+
+Using the facts that "maximum" is larger than "average" and that "average" is larger than "minimum", we have: +
+$$
+\begin{matrix}
+\mathop{max}_{i\in[T]} \frac{1}{k}\mathop{\sum}_{j=1}^k L_{\mathcal{D}_i}(A(S_j^i)) & \ge \frac{1}{T}\mathop{\sum}_{i=1}^T \frac{1}{k}\mathop{\sum}_{j=1}^k L_{\mathcal{D}_i}(A(S_j^i))\\
+& =   \frac{1}{k}\mathop{\sum}_{j=1}^k \frac{1}{T}\mathop{\sum}_{i=1}^T L_{\mathcal{D}_i}(A(S_j^i))\\
+& \ge \mathop{min}_{j\in[k]} \frac{1}{T}\mathop{\sum}_{i=1}^T L_{\mathcal{D}_i}(A(S_j^i))
+\end{matrix}
+$$
+
+So, currently, our target is lower bounded by the average true error (over all distributions) given some samples $$S_j$$. The intuition of the following steps is that since the learner sees only $$m$$ training data, it has no information on the unseen data. Hence, for each unseen data, the best error rate it can achieve is $$1/2$$.
+
+Fix some sample $$S_j=(x_1,\cdots,x_m)$$ and let $$v_1,\cdots,v_p$$ be the unseen examples. Since $$m\le|C|/2$$, it holds that $$p\ge m$$. Therefore,
+
+$$
+\begin{matrix}
+L_{\mathcal{D}_i}(h) & =\frac{1}{2m}\mathop{\sum}_{x\in C}\textbf{1}_{[h(x)\ne f_i(x)]}\\
+& \ge \frac{1}{2m}\mathop{\sum}_{r=1}^p\textbf{1}_{[h(v_r)\ne f_i(v_r)]}\\
+& \ge \frac{1}{2p}\mathop{\sum}_{r=1}^p\textbf{1}_{[h(v_r)\ne f_i(v_r)]}\\
+\end{matrix}
+$$
+
+Hence,
+$$
+\begin{matrix}
+\frac{1}{T}\mathop{\sum}_{i=1}^T L_{\mathcal{D}_i}(A(S_j^i)) & \ge \frac{1}{T}\mathop{\sum}_{i=1}^T \frac{1}{2p}\mathop{\sum}_{r=1}^P\textbf{1}_{[A(S_j^i)(v_r)\ne f_i(v_r)]}\\ 
+& = \frac{1}{2p}\mathop{\sum}_{r=1}^p\frac{1}{T}\mathop{\sum}_{i=1}^T \textbf{1}_{[A(S_j^i)(v_r)\ne f_i(v_r)]}\\
+\end{matrix}
+$$
+
+For each $$r\in[p]$$, we can partition all the functions in $$f_1,\cdots,f_T$$ into $$T/2$$ disjoint pairs, where for a pair $$(f_i,f_{i'})$$, $$\forall c \in C$$, $$f_i(c)\ne f_{i'}(c)$$ if and only if $$c=v_r$$ (i.e. the mapping of $$f_i$$ and $$f_{i'}$$ differs only for $$v_r$$). Since $$v_r$$ is out of sample data, it follows that $$S_j^i=S_j^{i'}$$, and hence $$A(S_j^i)(v_r)=A(S_j^i')(v_r)$$. Therefore,
+$$\textbf{1}[A(S_j^i)(v_r)\nef_i(v_r)]+\textbf{1}[A(S_j^{i'})(v_r)\nef_{i'}(v_r)]=1$$, +
+which yields +
+$$\frac{1}{T}\mathop{\sum}_{i=1}^T \textbf{1}_{[A(S_j^i)(v_r)\ne f_i(v_r)]}=\frac{1}{2}$$.
+
+Therefore, +
+$$
+\begin{matrix}
+\mathop{max}_{i\in[T]} \mathop{\mathbb{E}}_{S\sim\mathcal{D}_i^m}[L_{\mathcal{D}_i}(A(S))] & \ge \mathop{min}_{j\in[k]} \frac{1}{T}\mathop{\sum}_{i=1}^T L_{\mathcal{D}_i}(A(S_j^i))\\
+& \ge \frac{1}{2p} \cdot p \cdot \frac{1}{T}\mathop{\sum}_{i=1}^T \textbf{1}_{[A(S_j^i)(v_r)\ne f_i(v_r)]} = \frac{1}{4},\\
+\end{matrix}
+$$
+
+which finishes the proof.

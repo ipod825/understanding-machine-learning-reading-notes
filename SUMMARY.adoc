@@ -14,3 +14,4 @@
 .. link:chapter4-2.adoc[Finite Classes Are Agnostic PAC Learnable]
 . link:chapter5.adoc[The Bias-Complexity Tradeoff]
 .. link:chapter5-1.adoc[The No-Free-Lunch Theorem]
+.. link:chapter5-2.adoc[Error Decomposition]

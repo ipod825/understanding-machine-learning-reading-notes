@@ -1,0 +1,16 @@
+## Error Decomposition
+
+The No-Free-Lunch theorem tells that a learner without bias might fail on some tasks. However, if our bias is too strong, the hypothesis class might not contain a good hypothesis leading to $$0$$ (PAC learning) or small (agnostic PAC learning) true error. In this section, we investigate such tradeoff from the perspective of error decomposition. 
+
+Let $$h_s$$ be an $$ERM_{\mathcal{H}}$$ hypothesis, then we can write +
+$$L_{\mathcal{D}}(h_S)=\epsilon_{app}+\epsilon_{est}$$, where $$\epsilon_{app}=\mathop{min}_{h\in \mathcal{H}}L_{\mathcal{D}}(h)$$, $$\epsilon_{est}=L_{\mathcal{D}}(h_S)-\epsilon_{app}$$
+
+* **The Approximation Error** is the minimum risk achievable by a predictor in the hypothesis class. This term measures risk we have by introducing risk. It does not depend on the sample size and is determined by the hypothesis class chosen. It is $$0$$ under PAC learning model and is the error of the Bayes optimal predictor for agnostic PAC learner.
+
+* **The Estimation Error** is the difference between the approximation error and the error achieved by the ERM predictor. It results because the empirical risk (i.e., training error) is only an estimate of the true risk. The quality of this estimation depends on the training set size and on the size, or complexity, of the hypothesis class. $$\epsilon_{est}$$ increases (logarithmically) with $$\mathcal{H}$$ and decreases with $$m$$. We can think of $$|\mathcal{H}|$$ as a measure of the complexity of the hypothesis class. The more complex $$\mathcal{H}$$ is, the more samples we need to reduce estimation error.
+
+The goal of minimizing total risk indicates a tradeoff, called the _bias-complexity_ tradeoff. One one hand, choosing complex (low bias) hypothesis class reduce approximation error but might lead to high estimation error (overfitting). On the other hand, choosing high bias (simple) hypothesis class leads to lower estimation error but might increase approximation error (under-fitting).
+
+Learning theories study how complex we can make $$\mathcal{H}$$ while still maintaining a reasonable estimation error. Empirical research focus on designing good (small approximation error) hypothesis classes for certain domain. Essentially, we are trying different prior knowledge and see which one fits the word better. In the papayas example, we might find that the color and hardness serves as good indicator for its taste, but we might later find that the origin is a more important factor.
+
+
